@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/page-header :: head (title='Categories')">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="fragments/nav-bar :: nav"></nav>
+    <h1>
+        Categories &nbsp;
+        <a class="btn btn-primary" th:href="@{/categories/new}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;New</a>
+    </h1>
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${deleted}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Category deleted successfully!
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id <span th:include="fragments/sort-header :: sort (url='/categories', attr='id')" ></span></th>
+            <th>Name <span th:include="fragments/sort-header :: sort (url='/categories', attr='name')" ></span></th>
+            <th>Parent Category</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${page.getContent()}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.parentCategory != null ? p.parentCategory.getName() : ''}"></td>
+            <td th:include="fragments/buttons :: table-action (url='/categories/{id}', id=${p.id})"></td>
+        </tr>
+        </tbody>
+    </table>
+    <nav th:include="fragments/pagination :: pagination (url='/categories')"></nav>
+</div>
+</body>
+</html>

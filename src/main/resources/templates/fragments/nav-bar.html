@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>navigation bar</title>
+</head>
+<body>
+<nav th:fragment="nav" class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">POC</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/categories}">Categories</a></li>
+                <li><a th:href="@{/products}">Products</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-right" th:action="@{/logout}">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                </li>
+            </ul>
+            <form th:action="@{__${#strings.replace(#httpServletRequest.requestURI,'/search','')}__/search(sort=${sortString})}" th:object="${query}" th:method="POST" id="search-box" class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <select class="form-control capitalize-first" th:field="*{attribute}">
+                        <option th:each="attr : ${fields}" th:value="${attr}" th:text="${attr}"></option>
+                    </select>
+                    <input type="text" class="form-control" placeholder="Search" th:field="*{queryString}"/>
+                </div>
+                <button id="search-go" type="submit" class="btn btn-default">Go!</button>
+            </form>
+            <p class="navbar-text navbar-right">Search by: </p>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+</body>
+</html>

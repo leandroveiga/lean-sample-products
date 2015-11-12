@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>buttons fragment</title>
+</head>
+<body>
+<div th:fragment="table-action (url,id)">
+    <a th:href="@{${url}(id=${id})}" class="btn btn-info btn-sm">
+        <i class="glyphicon glyphicon-eye-open"></i>&nbsp;<span th:text="#{entity.action.view}"> View</span>
+    </a>
+    <a th:href="@{${url}(id=${id},edit=true)}" class="btn btn-primary btn-sm">
+        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span th:text="#{entity.action.edit}"> Edit</span>
+    </a>
+    <form style="display: inline" th:action="@{${url}(id=${id})}" th:method="DELETE">
+        <button type="submit" class="btn btn-danger btn-sm">
+            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span th:text="#{entity.action.delete}"> Delete</span>
+        </button>
+    </form>
+</div>
+</body>
+</html>

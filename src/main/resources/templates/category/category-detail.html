@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/page-header :: head (title='Category Detail')">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="fragments/nav-bar :: nav"></nav>
+    <h1>Category detail</h1>
+    <ul class="list-group">
+        <li class="list-group-item"><b>Id: </b><span th:text="${category.id}">1</span></li>
+        <li class="list-group-item"><b>Name: </b><span th:text="${category.name}">1</span></li>
+        <li class="list-group-item"><b>Parent Category: </b><span th:with="parent=${category.parentCategory}" th:text="${parent} == null ? '' : ${parent.name}">1</span></li>
+    </ul>
+    <a th:href="@{/categories}" class="btn btn-default">Back</a>
+    <a th:href="@{/categories/{id}(id=${category.id},edit=true)}" class="btn btn-primary">Edit</a>
+</div>
+</body>
+</html>

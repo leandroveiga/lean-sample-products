@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sort header fragment</title>
+</head>
+<body>
+<span th:fragment="sort (url,attr)">
+    <a th:href="@{${url}(sort=${attr}+',DESC')}" th:unless="${#strings.containsIgnoreCase(sortString,attr)}">
+        <i class="glyphicon glyphicon-sort"></i>
+    </a>
+    <a th:href="@{${url}(sort=${attr}+',DESC')}" th:if="${#strings.containsIgnoreCase(sortString,attr+',ASC')}">
+        <i class="glyphicon glyphicon-sort-by-attributes"></i>
+    </a>
+    <a th:href="@{${url}(sort=${attr}+',ASC')}" th:if="${#strings.containsIgnoreCase(sortString,attr+',DESC')}">
+        <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+    </a>
+</span>
+</body>
+</html>

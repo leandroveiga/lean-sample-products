@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/page-header :: head (title='Product Detail')">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="fragments/nav-bar :: nav"></nav>
+    <h1>Product detail</h1>
+    <ul class="list-group">
+        <li class="list-group-item"><b>Id: </b><span th:text="${product.id}">1</span></li>
+        <li class="list-group-item"><b>Name: </b><span th:text="${product.name}">1</span></li>
+        <li class="list-group-item"><b>Description: </b><span th:text="${product.description}">1</span></li>
+        <li class="list-group-item"><b>Price: </b><span th:text="${product.price}">1</span></li>
+        <li class="list-group-item"><b>Available: </b><span th:text="${product.available}">1</span></li>
+        <li class="list-group-item"><b>Categories: </b>
+            <span th:each="category,iterStat : ${product.getCategories()}">
+                <a th:href="@{/categories/{id}(id=${category.id})}" th:text="${category.name}"></a>
+                <span style="position: relative; left: -2px;" th:unless="${iterStat.last}">,&nbsp;</span>
+            </span>
+        </li>
+    </ul>
+    <a th:href="@{/products}" class="btn btn-default">Back</a>
+    <a th:href="@{/products/{id}(id=${product.id},edit=true)}" class="btn btn-primary">Edit</a>
+</div>
+</body>
+</html>

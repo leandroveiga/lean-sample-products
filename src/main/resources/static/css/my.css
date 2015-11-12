@@ -1,0 +1,5 @@
+select.capitalize-first,
+span#search-attr:first-letter,
+.capitalize-first a:first-letter {
+    text-transform: capitalize;
+}

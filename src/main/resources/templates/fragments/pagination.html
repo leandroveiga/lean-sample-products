@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>pagination fragment</title>
+</head>
+<body>
+<nav th:fragment="pagination (url)">
+    <ul class="pagination">
+        <li th:class="${page.isFirst() ? 'disabled' : ''}">
+            <span th:if="${page.isFirst()}">
+                <span aria-hidden="true">&laquo;</span>
+            </span>
+            <a th:href="@{${url}(sort=${sortString}, page=${page.getNumber() - 1})}" th:unless="${page.isFirst()}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li th:if="${page.getTotalPages() == 0}" class="active">
+            <span>1</span>
+        </li>
+        <li th:each="pg : ${#numbers.sequence(1,page.getTotalPages())}" th:class="${pg == page.getNumber()+1 ? 'active' : ''}" th:unless="${page.getTotalPages() == 0}">
+            <span th:if="${pg == page.getNumber()+1}" th:text="${pg}">1</span>
+            <a th:if="${pg != page.getNumber()+1}" th:href="@{${url}(sort=${sortString}, page=${pg-1})}" th:text="${pg}">1</a>
+        </li>
+        <li th:class="${page.isLast() ? 'disabled' : ''}">
+            <span th:if="${page.isLast()}">
+                <span aria-hidden="true">&raquo;</span>
+            </span>
+            <a th:href="@{${url}(sort=${sortString}, page=${page.getNumber() + 1})}" th:unless="${page.isLast()}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>
